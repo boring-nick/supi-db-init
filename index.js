@@ -150,7 +150,7 @@ module.exports = async function initializeDatabase (config) {
 
 	console.log(`SQL table data initialization script succeeded.\n${counter} tables initialized`);
 
-	pool.release();
+	pool.end();
 
 	console.log("Script end");
 	process.exit();
