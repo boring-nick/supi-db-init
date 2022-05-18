@@ -3,6 +3,11 @@ const { promisify } = require("util");
 const readFile = promisify(require("fs").readFile);
 const Maria = require("mariadb");
 
+/**
+ * Initializes database table definitions and initial data, per provided config.
+ * @param {DatabaseInitializationConfiguration} config
+ * @returns {Promise<void>}
+ */
 module.exports = async function initializeDatabase (config) {
 	console.log("Script begin");
 

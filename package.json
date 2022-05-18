@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Initializes database definitions and data for other projects",
   "main": "index.js",
+  "types": "index.d.ts",
   "repository": "https://github.com/Supinic/supi-db-init",
   "author": "Supinic <supinic@protonmail.com>",
   "license": "MIT",
