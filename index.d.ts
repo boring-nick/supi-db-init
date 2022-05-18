@@ -11,4 +11,4 @@ declare type DatabaseInitializationConfiguration = {
     }
 }
 
-export declare function initializeDatabase (config: DatabaseInitializationConfiguration): Promise<void>;
+export default function initializeDatabase (config: DatabaseInitializationConfiguration): Promise<void>;
