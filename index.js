@@ -53,7 +53,7 @@ module.exports = async function initializeDatabase (config) {
 	for (const target of definitionFiles) {
 		let content = null;
 
-		const filePath = path.join(__dirname, definitionFolderPath, `${target}.sql`);
+		const filePath = path.join(definitionFolderPath, `${target}.sql`);
 		try {
 			content = await readFile(filePath);
 		}
@@ -102,7 +102,7 @@ module.exports = async function initializeDatabase (config) {
 
 	for (const target of initialDataFiles) {
 		let content = null;
-		const filePath = path.join(__dirname, dataFolderPath, `${target}.sql`);
+		const filePath = path.join(dataFolderPath, `${target}.sql`);
 
 		try {
 			content = await readFile(filePath);
