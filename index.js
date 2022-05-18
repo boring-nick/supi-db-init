@@ -37,9 +37,11 @@ module.exports = async function initializeDatabase (config) {
 	console.log("Database connection started");
 
 	if (typeof meta.requiredMariaMajorVersion === "number") {
-		const [{ version }] = await pool.query("SELECT VERSION() AS version");
-		const major = Number(version.split(".")[0]);
+		const [{ version }] = await pool.query({
+			sql: "SELECT VERSION() AS version"
+		});
 
+		const major = Number(version.split(".")[0]);
 		if (Number.isNaN(major) || major < meta.requiredMariaMajorVersion) {
 			throw new Error(`Your version of MariaDB is too old! Use at least ${meta.requiredMariaMajorVersion}.0 or newer. Your version: ${version}`);
 		}
@@ -76,7 +78,8 @@ module.exports = async function initializeDatabase (config) {
 
 		let status = null;
 		try {
-			const operationResult = await pool.query(content);
+			const operationResult = await pool.query({ sql: content.toString() });
+
 			status = operationResult.warningStatus;
 		}
 		catch (e) {
@@ -113,7 +116,10 @@ module.exports = async function initializeDatabase (config) {
 		}
 
 		const [database, table] = target.split("/");
-		const rows = await pool.query(`SELECT COUNT(*) AS Count FROM \`${database}\`.\`${table}\``);
+		const rows = await pool.query({
+			sql: `SELECT COUNT(*) AS Count FROM \`${database}\`.\`${table}\``
+		});
+
 		if (rows.Count > 0) {
 			console.log(`Skipped initializing ${database}.${table} - table is not empty`);
 			continue;
@@ -121,7 +127,7 @@ module.exports = async function initializeDatabase (config) {
 
 		let status = null;
 		try {
-			const operationResult = await pool.query(content);
+			const operationResult = await pool.query({ sql: content.toString() });
 			status = operationResult.warningStatus;
 		}
 		catch (e) {
