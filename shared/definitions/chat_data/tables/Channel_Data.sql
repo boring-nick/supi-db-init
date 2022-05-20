@@ -1,4 +1,4 @@
-CREATE TABLE `Channel_Data` (
+CREATE TABLE IF NOT EXISTS `chat_data`.`Channel_Data` (
 	`Channel` INT(10) UNSIGNED NOT NULL,
 	`Property` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`Value` MEDIUMTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
