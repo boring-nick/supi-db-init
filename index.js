@@ -13,8 +13,10 @@ module.exports = async function initializeDatabase (config) {
 
 	const {
 		auth = {},
-		definitionFiles = [],
-		initialDataFiles = [],
+		definitionFilePaths = [],
+		initialDataFilePaths = [],
+		sharedDefinitionNames = [],
+		sharedInitialDataNames = [],
 		meta = {},
 	} = config;
 
@@ -52,15 +54,24 @@ module.exports = async function initializeDatabase (config) {
 	let counter = 0;
 	const definitionFolderPath = meta.definitionPath ?? "definitions";
 
-	for (const target of definitionFiles) {
+	for (const target of [...definitionFilePaths, ...sharedDefinitionNames]) {
 		let content = null;
 
-		const filePath = path.join(definitionFolderPath, `${target}.sql`);
+		const filePath = (sharedDefinitionNames.includes(target))
+			? path.join(__dirname, "shared", "definitions", `${target}.sql`)
+			: path.join(definitionFolderPath, `${target}.sql`);
+
 		try {
 			content = await readFile(filePath);
 		}
 		catch (e) {
-			console.warn(`An error occurred while reading ${target}.sql! Skipping...`, e);
+			if (sharedDefinitionNames.includes(target)) {
+				console.warn(`${target}.sql is not a shared definition file! Skipping...`, e);
+			}
+			else {
+				console.warn(`An error occurred while reading definition file ${target}.sql! Skipping...`, e);
+			}
+
 			continue;
 		}
 
@@ -103,15 +114,23 @@ module.exports = async function initializeDatabase (config) {
 	counter = 0;
 	const dataFolderPath = meta.dataPath ?? "initial-data";
 
-	for (const target of initialDataFiles) {
+	for (const target of [...initialDataFilePaths, ...sharedInitialDataNames]) {
 		let content = null;
-		const filePath = path.join(dataFolderPath, `${target}.sql`);
+		const filePath = (sharedInitialDataNames.includes(target))
+			? path.join(__dirname, "shared", "initial-data", `${target}.sql`)
+			: path.join(dataFolderPath, `${target}.sql`);
 
 		try {
 			content = await readFile(filePath);
 		}
 		catch (e) {
-			console.warn(`An error occurred while reading ${target}.sql! Skipping...`, e);
+			if (sharedInitialDataNames.includes(target)) {
+				console.warn(`${target}.sql is not a shared initial data file! Skipping...`, e);
+			}
+			else {
+				console.warn(`An error occurred while reading initial data file ${target}.sql! Skipping...`, e);
+			}
+
 			continue;
 		}
 
@@ -150,7 +169,7 @@ module.exports = async function initializeDatabase (config) {
 
 	console.log(`SQL table data initialization script succeeded.\n${counter} tables initialized`);
 
-	pool.end();
+	await pool.end();
 
 	console.log("Script end");
 	process.exit();

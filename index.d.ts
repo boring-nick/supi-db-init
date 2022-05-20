@@ -2,8 +2,10 @@ import { PoolConfig } from "mariadb";
 
 declare type DatabaseInitializationConfiguration = {
     auth: PoolConfig;
-    definitionFiles?: string[];
-    initialDataFiles?: string[];
+    definitionFilePaths?: string[];
+    initialDataFilePaths?: string[];
+    sharedDefinitionNames?: string[];
+    sharedInitialDataNames?: string[];
     meta?: {
         dataPath?: string;
         definitionPath?: string;
