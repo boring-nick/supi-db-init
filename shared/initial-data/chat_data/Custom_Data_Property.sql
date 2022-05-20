@@ -1,5 +1,5 @@
 INSERT INTO `chat_data`.`Custom_Data_Property`
-(`Name`, `Type`, `Target`, `Description`)
+(`Name`, `Type`, `Target`, `Cached`, `Description`)
 VALUES
 
 ('administrator', 'boolean', 'User', 1, 'Determines the administrator privileges. If true, many elevated commands and bypasses will be available for the user.'),
