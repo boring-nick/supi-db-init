@@ -144,27 +144,20 @@ module.exports = async function initializeDatabase (config) {
 			continue;
 		}
 
-		let status = null;
+		let duplicateRows = 0;
+		let insertedRows = 0;
 		try {
 			const operationResult = await pool.query({ sql: content.toString() });
-			status = operationResult.warningStatus;
+			duplicateRows = operationResult.warningStatus;
+			insertedRows = operationResult.affectedRows;
 		}
 		catch (e) {
 			console.warn(`An error occurred while executing ${target}.sql! Skipping...`, e);
 			continue;
 		}
 
-		if (status === 0) {
-			counter++;
-			console.log(`${database}.${table} initial data inserted successfully`);
-		}
-		else if (status === 1) {
-			counter++;
-			console.log(`${database}.${table} initial data inserted successfully, some rows were skipped as they already existed before`);
-		}
-		else {
-			console.log(`${database}.${table} initial data skipped - error occurred`);
-		}
+		console.log(`${database}.${table} inserted ${insertedRows} rows (${duplicateRows} were already present)`);
+		counter++;
 	}
 
 	console.log(`SQL table data initialization script succeeded.\n${counter} tables initialized`);
