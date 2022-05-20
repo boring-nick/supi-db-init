@@ -1,4 +1,4 @@
-INSERT INTO `chat_data`.`Custom_Data_Property`
+INSERT IGNORE INTO `chat_data`.`Custom_Data_Property`
 (`Name`, `Type`, `Target`, `Cached`, `Description`)
 VALUES
 

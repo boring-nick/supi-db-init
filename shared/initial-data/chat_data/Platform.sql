@@ -1,4 +1,4 @@
-INSERT INTO `chat_data`.`Platform`
+INSERT IGNORE INTO `chat_data`.`Platform`
 (`Name`, `Host`, `Message_Limit`, `Self_Name`, `Logging`, `Defaults`)
 VALUES
 ('Twitch',NULL,500,NULL,'{
