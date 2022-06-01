@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS `chat_data`.`Channel` (
   `Mention` TINYINT(1) NOT NULL DEFAULT 1 COMMENT 'If true, will attempt to "mention" users who use commands in this channel',
   `Links_Allowed` TINYINT(1) NOT NULL DEFAULT 1 COMMENT 'If false, any links in responses will be replaced by placeholder text',
   `NSFW` TINYINT(1) DEFAULT NULL COMMENT 'Flag that determines whether or not NSFW content can be posted in said channel.\r\nCurrently only sets TRUE for Discord channels with nsfw FLAG set to true.',
+  `Logging` SET('Lines','Meta') NULL DEFAULT 'Lines,Meta' COLLATE 'utf8mb4_general_ci',
   `Banphrase_API_Type` ENUM('Pajbot') DEFAULT NULL COMMENT 'If a channel should use an external banphrase API, this should be its type. Currently only supports "Pajbot".',
   `Banphrase_API_URL` VARCHAR(100) DEFAULT NULL COMMENT 'If a channel should use an external banphrase API, this should be its bare URL - no https:// or endpoints',
   `Banphrase_API_Downtime` enum('Ignore','Notify','Nothing','Refuse','Whisper') DEFAULT NULL COMMENT 'Determines the behaviour the bot should take if the banphrase API times out.\r\nIgnore - acts as if nothing happened and posts the message as is.\r\nNotify - as Ignore, but adds a warning emoji/message set up in Config\r\nRefuse - bot will refuse to reply with a warning message set up in Config',
