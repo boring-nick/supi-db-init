@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS `chat_data`.`Reminder` (
   `User_To` INT(10) UNSIGNED NOT NULL,
   `Channel` INT(10) UNSIGNED DEFAULT NULL,
   `Platform` INT(10) UNSIGNED DEFAULT NULL,
+  `Type` ENUM('Reminder','Pingme') NOT NULL DEFAULT 'Reminder' COLLATE 'utf8mb4_general_ci',
   `Text` VARCHAR(2000) DEFAULT NULL,
   `Created` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `Schedule` DATETIME(3) DEFAULT NULL,
