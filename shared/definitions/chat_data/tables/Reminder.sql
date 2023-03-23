@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS `chat_data`.`Reminder` (
   `Created` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `Schedule` DATETIME(3) DEFAULT NULL,
   `Active` TINYINT(1) NOT NULL DEFAULT 1,
+  `Cancelled` TINYINT(1) DEFAULT NULL,
   `Private_Message` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`ID`),
   KEY `Reminder_User_Alias_From` (`User_From`),
