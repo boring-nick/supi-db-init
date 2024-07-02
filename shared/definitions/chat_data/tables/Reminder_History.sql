@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `chat_data`.`Reminder` (
+CREATE TABLE IF NOT EXISTS `chat_data`.`Reminder_History` (
   `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `User_From` INT(10) UNSIGNED NOT NULL,
   `User_To` INT(10) UNSIGNED NOT NULL,
