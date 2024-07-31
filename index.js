@@ -15,8 +15,6 @@ module.exports = async function initializeDatabase (config) {
 		auth = {},
 		definitionFilePaths = [],
 		initialDataFilePaths = [],
-		sharedDefinitionNames = [],
-		sharedInitialDataNames = [],
 		meta = {},
 	} = config;
 
@@ -54,7 +52,9 @@ module.exports = async function initializeDatabase (config) {
 	let counter = 0;
 	const definitionFolderPath = meta.definitionPath ?? "definitions";
 
-	for (const target of [...definitionFilePaths, ...sharedDefinitionNames]) {
+	const dbExistsMap = new Map();
+
+	for (const target of definitionFilePaths) {
 		let content = null;
 
 		const filePath = (sharedDefinitionNames.includes(target))
@@ -77,15 +77,37 @@ module.exports = async function initializeDatabase (config) {
 
 		let string = null;
 		const [database, type, name] = target.split("/");
-		if (type === "database") {
-			string = `Database ${database}`;
+		if (!dbExistsMap.has(database)) {
+			if (database.includes(" ")) {
+				console.error(`Invalid database name: ${database}`);
+				process.exit(1);
+			}
+
+			const [{ dbExists }] = await pool.query(`
+				SELECT 1 AS dbExists
+				FROM INFORMATION_SCHEMA.SCHEMATA 
+				WHERE SCHEMA_NAME = '${database}'
+			`);
+
+			if (!dbExists) {
+				await pool.query(`
+					 CREATE DATABASE IF NOT EXISTS \`${database}\`
+					 CHARACTER SET = 'utf8mb4'
+					 COLLATE = 'utf8mb4_general_ci';
+				`);
+			}
 		}
-		else if (target.includes("tables")) {
+
+		if (target.includes("tables")) {
 			string = `Table ${database}.${name}`;
 		}
 		else if (target.includes("triggers")) {
 			string = `Trigger ${database}.${name}`;
 		}
+		else {
+			console.warn(`Unknown object type ${database}/${type}/${name}, skipping`);
+			continue;
+		 }
 
 		let status = null;
 		try {
@@ -114,7 +136,7 @@ module.exports = async function initializeDatabase (config) {
 	counter = 0;
 	const dataFolderPath = meta.dataPath ?? "initial-data";
 
-	for (const target of [...initialDataFilePaths, ...sharedInitialDataNames]) {
+	for (const target of initialDataFilePaths) {
 		let content = null;
 		const filePath = (sharedInitialDataNames.includes(target))
 			? path.join(__dirname, "shared", "initial-data", `${target}.sql`)

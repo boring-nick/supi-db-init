@@ -7,11 +7,11 @@
   "repository": "https://github.com/Supinic/supi-db-init",
   "author": "Supinic <supinic@protonmail.com>",
   "license": "MIT",
-  "private": false,
   "dependencies": {
     "mariadb": "^3.0.0"
   },
   "engines": {
     "node": ">= 16.0"
-  }
+  },
+  "packageManager": "yarn@4.3.1"
 }

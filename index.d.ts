@@ -4,8 +4,6 @@ declare type DatabaseInitializationConfiguration = {
     auth: PoolConfig;
     definitionFilePaths?: string[];
     initialDataFilePaths?: string[];
-    sharedDefinitionNames?: string[];
-    sharedInitialDataNames?: string[];
     meta?: {
         dataPath?: string;
         definitionPath?: string;
