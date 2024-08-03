@@ -51,27 +51,17 @@ module.exports = async function initializeDatabase (config) {
 
 	let counter = 0;
 	const definitionFolderPath = meta.definitionPath ?? "definitions";
-
 	const dbExistsMap = new Map();
 
 	for (const target of definitionFilePaths) {
 		let content = null;
 
-		const filePath = (sharedDefinitionNames.includes(target))
-			? path.join(__dirname, "shared", "definitions", `${target}.sql`)
-			: path.join(definitionFolderPath, `${target}.sql`);
-
+		const filePath = path.join(definitionFolderPath, `${target}.sql`);
 		try {
 			content = await readFile(filePath);
 		}
 		catch (e) {
-			if (sharedDefinitionNames.includes(target)) {
-				console.warn(`${target}.sql is not a shared definition file! Skipping...`, e);
-			}
-			else {
-				console.warn(`An error occurred while reading definition file ${target}.sql! Skipping...`, e);
-			}
-
+			console.warn(`An error occurred while reading definition file ${target}.sql! Skipping...`, e);
 			continue;
 		}
 
@@ -138,21 +128,12 @@ module.exports = async function initializeDatabase (config) {
 
 	for (const target of initialDataFilePaths) {
 		let content = null;
-		const filePath = (sharedInitialDataNames.includes(target))
-			? path.join(__dirname, "shared", "initial-data", `${target}.sql`)
-			: path.join(dataFolderPath, `${target}.sql`);
-
+		const filePath = path.join(dataFolderPath, `${target}.sql`);
 		try {
 			content = await readFile(filePath);
 		}
 		catch (e) {
-			if (sharedInitialDataNames.includes(target)) {
-				console.warn(`${target}.sql is not a shared initial data file! Skipping...`, e);
-			}
-			else {
-				console.warn(`An error occurred while reading initial data file ${target}.sql! Skipping...`, e);
-			}
-
+			console.warn(`An error occurred while reading initial data file ${target}.sql! Skipping...`, e);
 			continue;
 		}
 
