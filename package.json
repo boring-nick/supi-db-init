@@ -14,7 +14,8 @@
     "node": ">= 16.0"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "prepare": "tsc"
   },
   "packageManager": "yarn@4.3.1",
   "devDependencies": {
