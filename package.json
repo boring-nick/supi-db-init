@@ -7,6 +7,9 @@
   "repository": "https://github.com/Supinic/supi-db-init",
   "author": "Supinic <supinic@protonmail.com>",
   "license": "MIT",
+  "files": [
+      "build"
+  ],
   "dependencies": {
     "mariadb": "^3.0.0"
   },
@@ -15,7 +18,7 @@
   },
   "scripts": {
     "build": "npx tsc",
-    "prepare": "npx tsc"
+    "prepack": "npx tsc"
   },
   "packageManager": "yarn@4.3.1",
   "devDependencies": {
