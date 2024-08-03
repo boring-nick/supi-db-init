@@ -14,8 +14,8 @@
     "node": ">= 16.0"
   },
   "scripts": {
-    "build": "tsc",
-    "prepack": "tsc"
+    "build": "npx tsc",
+    "prepare": "npx tsc"
   },
   "packageManager": "yarn@4.3.1",
   "devDependencies": {
