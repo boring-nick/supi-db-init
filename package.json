@@ -10,6 +10,10 @@
   "dependencies": {
     "mariadb": "^3.0.0"
   },
+  "files": [
+    "dist",
+    "types",
+  ],
   "engines": {
     "node": ">= 16.0"
   },
