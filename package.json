@@ -15,7 +15,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "prepare": "tsc"
+    "prepack": "tsc"
   },
   "packageManager": "yarn@4.3.1",
   "devDependencies": {
