@@ -19,10 +19,8 @@ declare type DatabaseInitializationConfiguration = {
 
 /**
  * Initializes database table definitions and initial data, per provided config.
- * @param {DatabaseInitializationConfiguration} config
- * @returns {Promise<void>}
  */
-export default async function initializeDatabase(config: DatabaseInitializationConfiguration): Promise<void> {
+export default async function initializeDatabase(config: DatabaseInitializationConfiguration) {
 	console.log("Script begin");
 
 	const {
@@ -111,7 +109,7 @@ export default async function initializeDatabase(config: DatabaseInitializationC
 		else {
 			console.warn(`Unknown object type ${database}/${type}/${name}, skipping`);
 			continue;
-		 }
+		}
 
 		let status = null;
 		try {
