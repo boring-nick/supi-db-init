@@ -14,8 +14,7 @@
     "node": ">= 16.0"
   },
   "scripts": {
-    "build": "tsc",
-    "postinstall": "tsc"
+    "build": "tsc"
   },
   "packageManager": "yarn@4.3.1",
   "devDependencies": {
