@@ -20,7 +20,7 @@ declare type DatabaseInitializationConfiguration = {
 /**
  * Initializes database table definitions and initial data, per provided config.
  */
-export default async function initializeDatabase(config: DatabaseInitializationConfiguration) {
+export = async function initializeDatabase(config: DatabaseInitializationConfiguration) {
 	console.log("Script begin");
 
 	const {
