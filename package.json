@@ -15,7 +15,7 @@
   },
   "scripts": {
     "build": "npx tsc",
-    "prepack": "npx tsc"
+    "prepare": "npx tsc"
   },
   "packageManager": "yarn@4.3.1",
   "devDependencies": {
